@@ -19,10 +19,10 @@ class SequenceServiceImpl(
     }
 
     override fun nextBillNumber(): String {
-        val sequence = repository.findForUpdate("ITEM")
-            ?: throw IllegalStateException("ITEM sequence not configured")
+        val sequence = repository.findForUpdate("BILL")
+            ?: throw IllegalStateException("Billing sequence not configured")
         val next = sequence.nextValue
         sequence.nextValue = next + 1
-        return "ITM-$next"
+        return "BIL-$next"
     }
 }
