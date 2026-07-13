@@ -3,7 +3,10 @@ package com.manual.billing.dto.request
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
-data class CategoryUpdateRequest(
+data class CreateCategoryRequest(
+
+    @field:NotBlank
+    val code: String,
 
     @field:NotBlank
     val name: String,
@@ -11,8 +14,8 @@ data class CategoryUpdateRequest(
     val description: String? = null,
 
     @field:NotNull
-    val displayOrder: Int,
+    val displayOrder: Int = 0,
 
     @field:NotNull
-    val active: Boolean
+    val active: Boolean = true
 )
