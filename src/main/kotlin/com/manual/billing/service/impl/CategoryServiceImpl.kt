@@ -35,7 +35,7 @@ class CategoryServiceImpl(
 
     override fun updateCategory(id: Long, request: UpdateCategoryRequest): CategoryResponse {
         val category = categoryRepository.findById(id)
-            .orElseThrow { ResourceNotFoundException("Category: {}no ") }
+            .orElseThrow { ResourceNotFoundException("Category not found with id $id") }
 
         if (!category.name.equals(request.name, true)
             && categoryRepository.existsByNameIgnoreCase(request.name)
@@ -59,7 +59,7 @@ class CategoryServiceImpl(
 
     @Transactional(readOnly = true)
     override fun getAllCategories(): List<CategoryResponse> =
-        categoryRepository.findAll().map {item -> item.toResponse()}.toList()
+        categoryRepository.findByActiveTrueOrderByDisplayOrderAscNameAsc().map {cat -> cat.toResponse()}
 
 
     override fun deleteCategory(id: Long) {

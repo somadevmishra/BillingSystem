@@ -13,5 +13,7 @@ interface CategoryRepository: JpaRepository<CategoryEntity, Long> {
 
     fun findAllByOrderByDisplayOrderAscNameAsc(): List<CategoryEntity>
 
-    fun findAll(activeOnly: Boolean = false): List<CategoryEntity>
+    fun findByActiveTrueOrderByDisplayOrderAscNameAsc(): List<CategoryEntity>
+
+    fun findByCode(categoryCode: String): CategoryEntity?
 }

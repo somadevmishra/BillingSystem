@@ -6,9 +6,6 @@ import jakarta.validation.constraints.NotNull
 data class CreateCategoryRequest(
 
     @field:NotBlank
-    val code: String,
-
-    @field:NotBlank
     val name: String,
 
     val description: String? = null,

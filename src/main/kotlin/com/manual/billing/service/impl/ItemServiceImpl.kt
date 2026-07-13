@@ -6,30 +6,36 @@ import com.manual.billing.dto.response.ItemResponse
 import com.manual.billing.entity.ItemEntity
 import com.manual.billing.exception.ResourceNotFoundException
 import com.manual.billing.mapper.toResponse
+import com.manual.billing.repository.CategoryRepository
 import com.manual.billing.repository.ItemRepository
 import com.manual.billing.service.ItemService
 import com.manual.billing.service.SequenceService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
-import kotlin.streams.toList
 
 @Service
 @Transactional
 class ItemServiceImpl(
     private val itemRepository: ItemRepository,
-    private val sequenceService: SequenceService
+    private val sequenceService: SequenceService,
+    private val categoryRepository: CategoryRepository
 ) : ItemService {
 
     override fun createItem(
         request: CreateItemRequest
     ): ItemResponse {
 
+        val category = request.categoryCode?.let {
+            categoryRepository.findByCode(it)
+                ?: throw ResourceNotFoundException("Category '$it' not found")
+        }
+
         val item = ItemEntity(
             itemCode = sequenceService.nextItemCode(),
             name = request.name,
             description = request.description,
-            category = request.category,
+            category = category,
             unitPrice = request.unitPrice,
             gstPercentage = request.gstPercentage
         )
@@ -47,8 +53,8 @@ class ItemServiceImpl(
 
     @Transactional(readOnly = true)
     override fun getAllItems(): List<ItemResponse> =
-        itemRepository.findAll().stream()
-            .map { it.toResponse() }.toList()
+        itemRepository.findAll()
+            .map { item-> item.toResponse() }
 
     override fun updateItem(
         id: Long,
