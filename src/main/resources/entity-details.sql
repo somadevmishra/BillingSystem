@@ -131,3 +131,12 @@ CREATE TABLE bill_items (
     INDEX idx_bill_items_bill_id (bill_id),
     INDEX idx_bill_items_item_id (item_id)
 );
+
+INSERT INTO code_sequence (sequence_name, next_value)
+VALUES ('CATEGORY', 1);
+
+INSERT INTO code_sequence (sequence_name, next_value)
+VALUES ('ITEM', 1);
+
+INSERT INTO code_sequence (sequence_name, next_value)
+VALUES ('BILL', 1);

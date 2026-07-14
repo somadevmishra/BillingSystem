@@ -25,4 +25,12 @@ class SequenceServiceImpl(
         sequence.nextValue = next + 1
         return "BIL-$next"
     }
+
+    override fun nextCategoryNumber(): String {
+        val sequence = repository.findForUpdate("CATEGORY")
+            ?: throw IllegalStateException("Category sequence not configured")
+        val next = sequence.nextValue
+        sequence.nextValue = next + 1
+        return "CAT-$next"
+    }
 }

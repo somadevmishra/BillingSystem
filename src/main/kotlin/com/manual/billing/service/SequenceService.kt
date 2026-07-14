@@ -4,4 +4,6 @@ interface SequenceService{
     fun nextItemCode(): String
 
     fun nextBillNumber(): String
+
+    fun nextCategoryNumber(): String
 }

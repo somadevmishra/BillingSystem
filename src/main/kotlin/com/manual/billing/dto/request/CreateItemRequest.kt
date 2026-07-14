@@ -8,14 +8,11 @@ import java.math.BigDecimal
 data class CreateItemRequest (
 
     @field:NotBlank
-    val itemCode: String,
-
-    @field:NotBlank
     val name: String,
 
     val description: String? = null,
 
-    val category: CategoryEntity? = null,
+    val categoryCode: String? = null,
 
     @field:DecimalMin("0.00")
     val unitPrice: BigDecimal,
@@ -23,4 +20,3 @@ data class CreateItemRequest (
     @field:DecimalMin("0.00")
     val gstPercentage: BigDecimal = BigDecimal.ZERO
 )
-
