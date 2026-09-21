@@ -7,8 +7,7 @@ spring:
     password: ${DB_PASS}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
 server:
   port: 9080
-
